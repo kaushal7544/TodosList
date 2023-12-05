@@ -11,10 +11,18 @@ function App() {
     setTodos(todos.filter((e) =>{
       return e!==todo;
     })) 
+    localStorage.setItem("todos", JSON.stringify(todos));
   }
   const addTodo = (title,desc) => {
     console.log("I am adding todo",title,desc)
-    let sno = todos[todos.length-1].sno + 1;
+    let sno;
+    if(todos.length==0){
+      sno = 0;
+    }
+      else{
+         sno = todos[todos.length-1].sno + 1;
+      }
+    
     const myTodo ={
       sno: sno,
       title: title,
@@ -22,24 +30,12 @@ function App() {
     }
     setTodos([...todos, myTodo]);
     console.log(myTodo);
+    
+    localStorage.setItem("todos", JSON.stringify(todos));
+    
+    
   }
-  const [todos, setTodos] = useState([
-    {
-      sno:1,
-      title: "Go to the market",
-      desc: "You need to go to the market to get this job done" 
-    },
-    {
-      sno:2,
-      title: "Go to the mall",
-      desc: "You need to go to the mall to get this job done2" 
-    },
-    {
-      sno:3,
-      title: "Go to the ghat",
-      desc: "You need to go to the ghat to get this job done3" 
-    }
-  ]);
+  const [todos, setTodos] = useState([]);
   return (
     <>
     <Header title="MyTodosList" searchbar={true}/>
